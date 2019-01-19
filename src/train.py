@@ -33,6 +33,7 @@ models_dict = {
 def read_training_data(training_directory):
     image_data = []
     target_data = []
+    print(">>> LOADING CHAR IMAGES")
     for each_letter in letters:
         size = len(os.listdir(os.path.join(training_directory, each_letter)))
         for each in range(0,size):
@@ -54,11 +55,11 @@ def read_training_data(training_directory):
             image_data.append(flat_bin_image)
             target_data.append(each_letter)
     
-    print("TERMINOU LOAD")
+    print(">>> FINISHED LOADING CHAR IMAGES")
     return (np.array(image_data), np.array(target_data))
 
 def cross_validation(model, num_of_fold, train_data, train_label):
-    print("VALIDANDO")
+    print(">>> VALIDATING MODEL")
 
     accuracy_result = cross_val_score(model, train_data, train_label, cv=num_of_fold)
     
@@ -70,7 +71,7 @@ def model_dumper(model, save_directory, file_subdir, file_name):
     if not os.path.exists(save_directory):
         os.makedirs(save_directory)
     joblib.dump(model, save_directory+file_name)
-    print("SALVOU MODELO")
+    print(">>> DUMPED MODEL .plk TO ", save_directory)
 
 def train_all(dataset_dir, model_names=['svm_rbf','svm_linear','kneighbors','sgd', 'mlp','mlp_sgd','mlp_adam']):
     image_data, target_data = read_training_data(dataset_dir)
@@ -78,11 +79,11 @@ def train_all(dataset_dir, model_names=['svm_rbf','svm_linear','kneighbors','sgd
     current_dir = os.path.dirname(os.path.realpath(__file__))
 
     for m_name in model_names:
-        print("TREINAMENTO COM ALGORITIMO: ", m_name)
+        print(">>> TRAININ USING:", m_name)
         model = models_dict.get(m_name)
         model.fit(train_images, train_labels)
-        print("TERMINOU TREINAMENTO")
-        print("SCORE",m_name,"=",model.score(test_images, test_labels))
+        print(">>> FINISHED TRAINING")
+        print("SCORE FOR",m_name,"=",model.score(test_images, test_labels))
 
         file_subdir = '../models/'+m_name+'/'
         file_name = '/'+m_name+'.pkl'
@@ -93,5 +94,5 @@ def train_all(dataset_dir, model_names=['svm_rbf','svm_linear','kneighbors','sgd
 
 dataset_dir = "../imgs/dataset"
 
-train_all(dataset_dir,['mlp','svm_linear''svm_rbf','svm_linear','kneighbors','sgd','mlp','mlp_sgd','mlp_adam'])
+train_all(dataset_dir,['mlp'])
 

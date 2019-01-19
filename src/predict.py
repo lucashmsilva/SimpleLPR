@@ -37,7 +37,7 @@ def load_plates(plates_path="../imgs/plates/", plate=None):
         plate_labels = [splitext(p)[0] for p in plates]
         return (plates,plate_labels)
 
-def preditc(plate, plate_label, models, plates_path="../imgs/plates/", verbose=0):
+def preditc(plate, plate_label, models, plates_path="../imgs/plates/", verbose=1):
     characters,column_list = segmentation.segment(plates_path,plate)
     segmentation.disp_img()
     if characters == None:
@@ -137,14 +137,14 @@ def test_all():
     output = []
     seg_rate = 1.0*right_seg/n_plates
     round(seg_rate,2)
-    output.append("ACERTO NA SEGMENTAÇÃO: " + str(right_seg)+'/'+str(n_plates)+'\n')
+    output.append(">>> SEGMENTATION \"ACCURACY\": " + str(right_seg)+'/'+str(n_plates)+'\n')
     output.append('\t\t'+str(seg_rate))
     f.writelines(output)
     output[:] = []
 
     rate = 1.0*cont_100_geral[0]/right_seg
     rate = round(rate,2)
-    output.append("\nACERTO GERAL USANDO TODOS MODELOS: " + str(cont_100_geral[0])+'/'+str(right_seg)+'\n')
+    output.append("\n>>> GENERAL \"ACCURACY\" USING ALL AVAILABLE MODELS: " + str(cont_100_geral[0])+'/'+str(right_seg)+'\n')
     output.append('\t\t'+str(rate))
     f.writelines(output)
     output[:] = []
@@ -153,17 +153,17 @@ def test_all():
     for alg in algs:
         output.append("\n" + alg + ":\n")
 
-        output.append("\tACERTO GERAL: " + str(cont_100[alg])+"/"+str(right_seg)+'\n')
+        output.append("\t>>> GENERAL \"ACCURACY\": " + str(cont_100[alg])+"/"+str(right_seg)+'\n')
         rate = 1.0*cont_100[alg]/right_seg
         rate = round(rate,2)
         output.append('\t\t'+ str(rate) + "\n")
 
-        output.append("\tACERTO MEDIO EM TODAS PLACAS: " + str(round(ac_geral[alg],2))+"/"+str(right_seg)+'\n')
+        output.append("\t>>> GENERAL AVERAGE \"ACCURACY\" WITH ALL PLATES: " + str(round(ac_geral[alg], 2))+"/"+str(right_seg)+'\n')
         rate = 1.0*ac_geral[alg]/right_seg
         rate = round(rate,2)
         output.append('\t\t'+ str(rate) + "\n")
 
-        output.append("\tACERTO POR LETRA:\n")
+        output.append("\t\">>> ACCURACY\" BY LETTER:\n")
         for key, value in sorted(letter_predict[alg].items()):
             rate = 0
             if(value[0] != 0):
@@ -198,5 +198,6 @@ try:
         print("Usage: python3 predict.py [OPTIONS] [IMAGE FILENAME]")
         print("[OPTIONS]\n \t-a \t Test with entire plate dataset (doesn't require filename)\n \t-t \t Test with one image (filiname must be provided <label.png>)")
 except Exception as e:
-        print("Usage: python3 predict.py [OPTIONS] [IMAGE FILENAME]")
-        print("[OPTIONS]\n \t-a \t Test with entire plate dataset (doesn't require filename)\n \t-t \t Test with one image (filiname must be provided <label.png>)")
+        print(e)
+        # print("Usage: python3 predict.py [OPTIONS] [IMAGE FILENAME]")
+        # print("[OPTIONS]\n \t-a \t Test with entire plate dataset (doesn't require filename)\n \t-t \t Test with one image (filiname must be provided <label.png>)")
