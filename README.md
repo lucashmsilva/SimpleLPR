@@ -1,6 +1,6 @@
 # SimpleLPR
 
-I implemented this LPR (license plate recognition) system as a assignment of a DIgital Image Processing course I took at college.
+I implemented this LPR (license plate recognition) system as a assignment of a Digital Image Processing course I took in college.
 
 I wrote a small paper with a colleague explaining the system and presenting some results. It's in portuguese, but fell free to email me or open a issue if you have any questions.
 
@@ -12,9 +12,9 @@ Use python >=3
 
 `pip install numpy`
 
-`pip install sci-kit-learn`
+`pip install scikit-learn`
 
-`pip install sci-kit-image`
+`pip install scikit-image`
 
 # Usage
 
