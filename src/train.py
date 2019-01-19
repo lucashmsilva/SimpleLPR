@@ -94,5 +94,5 @@ def train_all(dataset_dir, model_names=['svm_rbf','svm_linear','kneighbors','sgd
 
 dataset_dir = "../imgs/dataset"
 
-train_all(dataset_dir,['mlp'])
+train_all(dataset_dir, ['svm_rbf', 'svm_linear', 'kneighbors', 'sgd', 'mlp', 'mlp_sgd', 'mlp_adam'])
 

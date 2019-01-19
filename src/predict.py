@@ -213,5 +213,6 @@ try:
         print("Usage: python3 predict.py [OPTIONS] [IMAGE FILENAME]")
         print("[OPTIONS]\n \t-a \t Test with entire plate dataset (doesn't require filename)\n \t-t \t Test with one image (filiname must be provided <label.png>)")
 except Exception as e:
+        print(e)
         print("Usage: python3 predict.py [OPTIONS] [IMAGE FILENAME]")
         print("[OPTIONS]\n \t-a \t Test with entire plate dataset (doesn't require filename)\n \t-t \t Test with one image (filiname must be provided <label.png>)")
